@@ -1,14 +1,42 @@
+ const express = require ("express");
 
+ const app = express();
 
-const fs = require("fs")
+  app.use(express.urlencoded());
 
- fs.writeFileSync("text.txt","This file created with sync")
-
-
- fs.writeFileSync("sync.txt","This file created with Async callback",(err)=>{
-    if(err){
-        return console.error("Error creating file:",err)
+  var stdData = [
+    {
+        id : 1,
+        name:"akshay",
     }
-    console.log("File created successfully with async / callback.")
- })
+  ];
 
+  app.set("view engine","ejs")
+  app.get ("/",(req,res)=>{
+    res.render("index",{
+        std:stdData,
+    });
+  });
+
+  app.post("/insertData",(req,res)=>{
+    const{id,name} = req.body;
+    let object = {
+        id:id,
+        name:name,
+    };
+    stdData.push(object);
+    res.redirect("/")
+  })
+
+  app.get("/deleteData",(req,res)=>{
+    const id = req.query.userid;
+    const data = studentData.filter((el,i)=>{
+        return el.id != id;
+    });
+    studentData = data;
+    res.redirect("back")
+})
+
+ app.listen (7777,()=>{
+    console.log("server listen")
+ })

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Student Name</title>
+</head>
+<body>
+    <h1>Edit Student</h1>
+    <form action="/updateData" method="POST">
+        <input type="hidden" name="id" value="<%= editdata.id %>">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" value="<%= editdata.name %>">
+        <button type="submit">Edit</button>
+    </form>
+</body>
+</html>
