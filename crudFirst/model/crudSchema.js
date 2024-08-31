@@ -10,7 +10,16 @@ const crud = mongoose.Schema({
     subject:{
         type:String,
         required:true
+    },
+
+
+    Image : {
+        type:String,
+        required:true
     }
+
+
+   
 })
 
 const crudTbl = mongoose.model("crud",crud)

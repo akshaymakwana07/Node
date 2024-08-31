@@ -7,6 +7,11 @@ const db = require("./config/database")
 
 const crudSchema = require("./model/crudSchema")
 
+const multer = require("multer")
+
+const path = require ("path")
+
+
 app.use(express.urlencoded());
 
 app.set("view engine","ejs")
@@ -16,8 +21,24 @@ app.get ("/",async(req,res)=>{
     data ? res.render("index",{data}) : console.log("data not found")
 })
 
+const Storage = multer.diskStorage({
+    destination : (req,file,cb) => {
+        cb (null,"uploads/")
+    },
+    filename : (req,file,cb)=>{
+       
+        cb(null,file.fieldname +"-"+ Date.now());
+    }
+})
 
-app.post("/insert",async(req,res)=>{
+const uploadpic = multer({storage:Storage}).single("Image");
+
+app.use(express.static(path.join(__dirname,"uploads")))
+
+
+
+app.post("/insert",uploadpic,async(req,res)=>{
+    req.body.Image = req.file.filename
     console.log(req.body)
     let data = await crudSchema.create(req.body);
     data ? res.redirect("back") : console.log ("data not submitted")

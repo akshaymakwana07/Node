@@ -7,10 +7,11 @@
 </head>
 <body>
     
-    <form action="/insert" method="POST" 
+    <form action="/insert" method="POST" enctype="multipart/form-data">
 
         <input type="text" placeholder="enter name" name="name">
         <input type="text" placeholder="enter sub" name="subject">
+        <input type="file" name="Image">
         <input type="submit">
 
     </form>
@@ -19,6 +20,7 @@
         <tr>
             <th>Name</th>
             <th>Subject</th>
+            <th>image</th>
             <th>Action</th>
         </tr>
 
@@ -26,6 +28,7 @@
             <tr>
                 <td><%=e.name%></td>
                 <td><%=e.subject%></td>
+                <td><img src="<%=e.Image%>" width="250ox" height="250px" alt="Uploaded Image"></td>
                 <td>
                     <a href="/deleteData?id=<%=e.id%>"><button>Delete</button></a>
                     <a href="/editData?id=<%=e.id%>"><button>Edit</button></a>
