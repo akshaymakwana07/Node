@@ -11,6 +11,8 @@ const multer = require("multer")
 
 const path = require ("path")
 
+const fs = require ("fs");
+
 
 app.use(express.urlencoded());
 
@@ -33,18 +35,20 @@ const Storage = multer.diskStorage({
 
 const uploadpic = multer({storage:Storage}).single("Image");
 
-app.use(express.static(path.join(__dirname,"uploads")))
+app.use("/uploads",express.static(path.join(__dirname,"uploads")))
 
 
 
 app.post("/insert",uploadpic,async(req,res)=>{
-    req.body.Image = req.file.filename
+    req.body.Image = req.file.path
     console.log(req.body)
     let data = await crudSchema.create(req.body);
     data ? res.redirect("back") : console.log ("data not submitted")
 })
 
 app.get("/deleteData",async(req,res)=>{
+    let singleData = await crudSchema.findById(req.query.id);
+    fs.unlinkSync(singleData.Image);
     let deleteData = await crudSchema.findByIdAndDelete(req.query.id);
     deleteData ? res.redirect("back") : console.log("data not deleted")
 })
@@ -56,7 +60,15 @@ app.get("/editData",async(req,res) =>{
 } )
 
 
-app.post("/updateData",async(req,res)=>{
+app.post("/updateData",uploadpic,async(req,res)=>{
+    let singleData = await crudSchema.findById(req.query.id);
+    req.file ? img = req.file.path : img = singleData.Image;
+    if(req.file){
+        fs.unlinkSync(singleData.Image);
+    }
+    req.body.Image = img
+
+    
     console.log(req.body)
     console.log(req.query.id)
     let update = await crudSchema.findByIdAndUpdate(req.query.id,req.body);

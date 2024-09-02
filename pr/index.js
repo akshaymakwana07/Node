@@ -4,10 +4,15 @@ const port = 3232;
 
 const app = express();
 
+const db = require("./config/database")
+
+const crudSchema = require("./model/crudSchema")
+
 app.set("view engine","ejs")
 
-app.get("/",(req,res)=>{
-    res.render("index")
+app.get("/",async(req,res)=>{
+    let data = await crudSchema.find({});
+    data ? res .render("index",{data}) : console .log("data not found")
 })
 
 app.listen (port , (err)=>{

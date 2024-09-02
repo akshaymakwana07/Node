@@ -8,10 +8,11 @@
 <body>
     <h1>Edit page</h1>
 
-    <form action="/updateData?id=<%=singleData._id%>" method="POST" >
+    <form action="/updateData?id=<%=singleData._id%>" method="POST" enctype="multipart/form-data" >
 
         <input type="text" placeholder="enter name" value="<%=singleData.name%>" name="name">
         <input type="text" placeholder="enter sub" value="<%=singleData.subject%>" name="subject">
+        <input type="file" name="Image"><img src="<%=singleData.Image%>" width="250px" alt=""></input>
         <input type="submit">
 
     </form>
