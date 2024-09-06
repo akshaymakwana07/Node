@@ -22,8 +22,9 @@ module.exports.abt = async(req,res)=>{
 }
 
 module.exports.insert =  async(req,res)=>{
+    console.log(req.file)
     try{
-        console.log(req.body)
+        req.body.poster = req.file.path
         let data = await movieApl.create(req.body);
         res.redirect("/")
     }catch(err){
@@ -51,6 +52,16 @@ module.exports.editData = async(req,res) =>{
 
 module.exports.updateData = async(req,res)=>{
     try{
+
+        const single= await movieApl.findById(req.query.id)
+        const imgpath= path.join(__dirname,'..',single.poster)
+        if(req.file){
+            fs.unlinkSync(imgpath)
+            req.body.poster = req.file.path
+        }else{
+            req.body.poster =single.poster
+        }
+
         let update = await movieApl.findByIdAndUpdate(req.query.id,req.body) 
         res.redirect("/")
     } catch(err){

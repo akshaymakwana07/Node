@@ -20,10 +20,10 @@ const movie = mongoose.Schema({
         type : String,
         required : true
     },
-    // poster:{
-    //     type : String,
-    //     required : true
-    // }
+    poster:{
+        type : String,
+        required : true
+    }
 })
 
 const movieApl = mongoose.model("movie",movie);

@@ -13,7 +13,7 @@ routes.get("/",adminCtl.abt)
 routes.post("/insert",uploadpic,adminCtl.insert)
 routes.get("/deleteData",adminCtl.deleteData)
 routes.get("/editData",adminCtl.editData)
-routes.post("/updateData",adminCtl.updateData)
+routes.post("/updateData",uploadpic,adminCtl.updateData)
 
 
 module.exports = routes;

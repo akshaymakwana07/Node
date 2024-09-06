@@ -65,7 +65,7 @@
         .text {
             width: 100%;
             height: 40px;
-            /* border: 1px solid black; */
+            border: 1px solid black;
             display: flex;
             justify-content: space-evenly;
             background-color: #F5F5F5;
@@ -98,99 +98,118 @@
             
         }
 
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            background-color: #f0f0f0;
+        .btn6{
+            text-decoration: none;
+            color: white;
         }
 
         .movies {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            padding: 20px;
-            justify-content: center;
-        }
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  padding: 20px;
+  background-color: #f5f5f5;
+}
 
-        .movie-card {
-            background-color: #fff;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-        }
+/* Movie card styling */
+.movie-card {
+  width: 250px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
 
-        .movie-card:hover {
-            transform: scale(1.05);
-        }
+.movie-card:hover {
+  transform: scale(1.05);
+}
 
-        .movie-card img {
-            width: 100%;
-            height: auto;
-            border-bottom: 2px solid #ddd;
-        }
+.movie-card img {
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
+  border-bottom: 1px solid #ddd;
+}
 
-        .movie-details {
-            padding: 15px;
-            text-align: center;
-        }
+/* Movie details */
+.movie-details {
+  padding: 15px;
+  text-align: center;
+}
 
-        .movie-details h5 {
-            margin: 10px 0;
-            font-size: 18px;
-            color: #333;
-        }
+.movie-details h5 {
+  margin: 10px 0;
+  font-size: 16px;
+  color: #333;
+}
 
-        .movie-details button {
-            padding: 10px 15px;
-            margin: 10px 5px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 14px;
-        }
+.movie-details .movie-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #007bff;
+}
 
-        .movie-details button:hover {
-            background-color: #0056b3;
-        }
+.movie-details .movie-year, .movie-details .movie-rating, .movie-details .movie-category {
+  font-size: 14px;
+  color: #555;
+}
 
-        .movie-details a {
-            text-decoration: none;
-        }
+/* Buttons */
+.movie-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
 
-        /* Responsive breakpoints */
-        @media (max-width: 768px) {
-            .movies {
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                padding: 10px;
-            }
+.btn {
+  padding: 8px 12px;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
 
-            .movie-card {
-                margin-bottom: 20px;
-            }
+.delete-btn {
+  background-color: #ff4b4b;
+  color: white;
+  width: 80px;
+}
 
-            .movie-details h5 {
-                font-size: 16px;
-            }
+.delete-btn:hover {
+  background-color: #ff1c1c;
+}
 
-            .movie-details button {
-                font-size: 12px;
-            }
-        }
+.edit-btn {
+  background-color: #4caf50;
+  color: white;
+  width: 80px;
+}
 
-        @media (max-width: 480px) {
-            .movies {
-                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            }
+.edit-btn:hover {
+  background-color: #3e8e41;
+}
 
-            .movie-details h5 {
-                font-size: 14px;
-            }
-        }
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .movie-card {
+    width: 100%;
+  }
+}
+
+@media (max-width: 500px) {
+  .movie-details h5 {
+    font-size: 14px;
+  }
+  
+  .btn {
+    font-size: 12px;
+  }
+}
+
+        
     </style>
 
 
@@ -207,7 +226,7 @@
         </div>
         <div class="btn">
            
-            <button><a href="/book">add</a></button>
+            <button><a class="btn6" href="/book">ADD</a></button>
         
         </div>
        </div>
@@ -238,23 +257,25 @@
 
     <div class="movies">
         <% data.map((e, i) => { %>
-            <div class="movie-card">
-                <img src="<%=e.poster%>" alt="Movie Poster">
-                <div class="movie-details">
-                    <h5><%=e.title%></h5>
-                    <h5><%=e.year%></h5>
-                    <h5>Rating: <%=e.rating%></h5>
-                    <h5>Category: <%=e.category%></h5>
-                    <a href="/deleteData?id=<%=e._id%>">
-                        <button id="btn1">Delete</button>
-                    </a>
-                    <a href="/editData?id=<%=e._id%>">
-                        <button id="btn2">Edit</button>
-                    </a>
-                </div>
+          <div class="movie-card">
+            <img src="<%=e.poster%>" alt="Movie Poster">
+            <div class="movie-details">
+              <h5 class="movie-title"><%=e.title%></h5>
+              <h5 class="movie-year"><%=e.year%></h5>
+              <h5 class="movie-rating">Rating: <%=e.rating%></h5>
+              <h5 class="movie-category">Category: <%=e.category%></h5>
+              <div class="movie-actions">
+                <a href="/deleteData?id=<%=e._id%>">
+                  <button id="btn1" class="btn delete-btn">Delete</button>
+                </a>
+                <a href="/editData?id=<%=e._id%>">
+                  <button id="btn2" class="btn edit-btn">Edit</button>
+                </a>
+              </div>
             </div>
+          </div>
         <% }) %>
-    </div>
+      </div>
 
 </body>
 </html>
